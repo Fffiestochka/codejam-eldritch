@@ -29,6 +29,10 @@ const easy = document.querySelector('.easy');
 const normal = document.querySelector('.normal');
 const hard = document.querySelector('.hard');
 
+const start = document.querySelector('.start');
+const result = document.querySelector('.result');
+
+
 ancients.addEventListener('click', (e) => {
   let choosedCardName = e.target.className.split(' ')[0]; // cthulhu
 
@@ -60,7 +64,11 @@ ancients.addEventListener('click', (e) => {
   totalBlue = +blue1.textContent + +blue2.textContent + +blue3.textContent;
 });
 
-// var arr = [1, 2, 3, 4, 5];
+start.addEventListener('click', () => {
+  start.classList.add('active');
+  result.classList.add('active');
+
+})
 
 function shuffleArrayRandom(a, b) {
   return Math.random() - 0.5;
@@ -124,7 +132,8 @@ function checkData() {
     // totalSelectedDeck[0],
     // totalSelectedDeck[1],
     // totalSelectedDeck[2]
-    scheme
+    scheme,
+    typeof scheme[0]
   );
 }
 
@@ -225,20 +234,43 @@ back.addEventListener('click', () => {
   if (totalSelectedDeck[0].length > 0) {
     card = totalSelectedDeck[0].pop();
     cardColor = card.color;
+    console.log(cardColor);
     cardFace = card.cardFace;
     frontImg.src = cardFace;
 
-
+    if (cardColor === 'green') {
+      green1.textContent = green1.textContent - 1;
+    } else if (cardColor === 'brown') {
+      brown1.textContent = brown1.textContent - 1;
+    } else if (cardColor === 'blue') {
+      blue1.textContent = blue1.textContent - 1;
+    }
   } else if (totalSelectedDeck[1].length > 0) {
     card = totalSelectedDeck[1].pop();
     cardColor = card.color;
     cardFace = card.cardFace;
     frontImg.src = cardFace;
+
+    if (cardColor === 'green') {
+      green2.textContent = green2.textContent - 1;
+    } else if (cardColor === 'brown') {
+      brown2.textContent = brown2.textContent - 1;
+    } else if (cardColor === 'blue') {
+      blue2.textContent = blue2.textContent - 1;
+    }
   } else if (totalSelectedDeck[2].length > 0) {
     card = totalSelectedDeck[2].pop();
     cardColor = card.color;
     cardFace = card.cardFace;
     frontImg.src = cardFace;
+
+    if (cardColor === 'green') {
+      green3.textContent = green3.textContent - 1;
+    } else if (cardColor === 'brown') {
+      brown3.textContent = brown3.textContent - 1;
+    } else if (cardColor === 'blue') {
+      blue3.textContent = blue3.textContent - 1;
+    }
   } else {
     frontImg.style.display = 'none';
   }

@@ -170,8 +170,8 @@
 }
 
 .result {
-  // display: none;
-  display: grid;
+  display: none;
+  // display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: 1fr;
   justify-items: center;
@@ -180,12 +180,12 @@
   height: 100%;
 }
 
-.result.shuffle {
-  display: flex;
+.result.active {
+  display: grid;
 }
 
 .start {
-  display: none;
+  // display: none;
   border: 1px solid #fff;
   width: 100px;
   margin: 0 auto;
@@ -197,6 +197,9 @@
 .start:hover {
   border: 1px solid rgb(184, 13, 236);
 	color: rgb(184, 13, 236);
+}
+.start.active {
+  display: none;
 }
 
 // .back-container {
