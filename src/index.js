@@ -1,10 +1,8 @@
-// import { Key } from './js/Key';
-// console.log(Key);
 import ancientsData from '../src/data/ancients.js';
 import cardsDataBlue from '../src/data/mythicCards/blue/index';
 import cardsDataBrown from '../src/data/mythicCards/brown/index';
 import cardsDataGreen from '../src/data/mythicCards/green/index';
-
+//========== ancients
 const ancients = document.querySelector('.ancients');
 let scheme = [];
 const ancientCards = Array.from(document.querySelectorAll('.ancient'));
@@ -20,18 +18,53 @@ const blue3 = document.querySelector('.blue3');
 let totalGreen;
 let totalBrown;
 let totalBlue;
-
-let frontImg = document.querySelector('.front-img');
-let back = document.querySelector('.back');
+//============== другие DOM-элементы
+const start = document.querySelector('.start');
+const result = document.querySelector('.result');
+const frontImg = document.querySelector('.front-img');
+const back = document.querySelector('.back');
 
 const easiest = document.querySelector('.easiest');
 const easy = document.querySelector('.easy');
 const normal = document.querySelector('.normal');
 const hard = document.querySelector('.hard');
 
-const start = document.querySelector('.start');
-const result = document.querySelector('.result');
 
+let blueRandom = cardsDataBlue.sort(shuffleArrayRandom);
+let brownRandom = cardsDataBrown.sort(shuffleArrayRandom);
+let greenRandom = cardsDataGreen.sort(shuffleArrayRandom);
+
+let st1blue;
+let st2blue;
+let st3blue;
+let st1brown;
+let st2brown;
+let st3brown;
+let st1green;
+let st2green;
+let st3green;
+
+let selectedGreenCards; // массив объектов
+let selectedBrownCards;
+let selectedBlueCards;
+
+let little1GreenDeck;
+let little2GreenDeck;
+let little3GreenDeck;
+
+let little1BrownDeck;
+let little2BrownDeck;
+let little3BrownDeck;
+
+let little1BlueDeck;
+let little2BlueDeck;
+let little3BlueDeck;
+
+let selected1StDeck = []; // массив из массивов с объектами
+let selected2StDeck = [];
+let selected3StDeck = [];
+
+let totalSelectedDeck;
 
 ancients.addEventListener('click', (e) => {
   let choosedCardName = e.target.className.split(' ')[0]; // cthulhu
@@ -67,18 +100,11 @@ ancients.addEventListener('click', (e) => {
 start.addEventListener('click', () => {
   start.classList.add('active');
   result.classList.add('active');
-
 })
 
 function shuffleArrayRandom(a, b) {
   return Math.random() - 0.5;
 }
-
-let blueRandom = cardsDataBlue.sort(shuffleArrayRandom);
-let brownRandom = cardsDataBrown.sort(shuffleArrayRandom);
-let greenRandom = cardsDataGreen.sort(shuffleArrayRandom);
-
-// console.log(blueRandom)
 
 function createCardDeck(length, array) {
   let newArr = [];
@@ -93,16 +119,6 @@ function splitColorByStage(stage, color) {
   return stColor;
 }
 
-let st1blue;
-let st2blue;
-let st3blue;
-let st1brown;
-let st2brown;
-let st3brown;
-let st1green;
-let st2green;
-let st3green;
-
 normal.addEventListener('click', () => {
   st1blue = splitColorByStage(1, 'blue');
   st2blue = splitColorByStage(2, 'blue');
@@ -115,52 +131,20 @@ normal.addEventListener('click', () => {
   st3green = splitColorByStage(3, 'green');
 });
 
-let selectedGreenCards; // массив объектов
-let selectedBrownCards;
-let selectedBlueCards;
+// function checkData() {
+//     console.log(
+//     totalSelectedDeck,
+//     scheme,
+//     typeof scheme[0]
+//   );
+// }
 
-function checkData() {
-  // console.log(scheme, totalGreen, totalBrown, totalBlue);
-  console.log(
-    // st1green, // number
-
-    // little1GreenDeck,
-    // selected1StDeck,
-    // selected2StDeck,
-    // selected3StDeck,
-    totalSelectedDeck,
-    // totalSelectedDeck[0],
-    // totalSelectedDeck[1],
-    // totalSelectedDeck[2]
-    scheme,
-    typeof scheme[0]
-  );
-}
-
-let little1GreenDeck;
-let little2GreenDeck;
-let little3GreenDeck;
-
-let little1BrownDeck;
-let little2BrownDeck;
-let little3BrownDeck;
-
-let little1BlueDeck;
-let little2BlueDeck;
-let little3BlueDeck;
-
-easiest.addEventListener('click', checkData);
+// easiest.addEventListener('click', checkData);
 easy.addEventListener('click', () => {
   selectedGreenCards = createCardDeck(totalGreen, greenRandom);
   selectedBrownCards = createCardDeck(totalBrown, brownRandom);
   selectedBlueCards = createCardDeck(totalBlue, blueRandom);
-
-  // console.log(selectedGreenCards, selectedBrownCards, selectedBlueCards);
 });
-
-let selected1StDeck = []; // массив из массивов с объектами
-let selected2StDeck = [];
-let selected3StDeck = [];
 
 function create1StageDeck() {
   if (little1GreenDeck.length > 0) {
@@ -200,8 +184,6 @@ function create3StageDeck() {
   }
   selected3StDeck.sort(shuffleArrayRandom);
 }
-
-let totalSelectedDeck;
 
 hard.addEventListener('click', () => {
   little1GreenDeck = createCardDeck(st1green, selectedGreenCards);
