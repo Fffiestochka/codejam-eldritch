@@ -29,7 +29,6 @@ const easy = document.querySelector('.easy');
 const normal = document.querySelector('.normal');
 const hard = document.querySelector('.hard');
 
-
 let blueRandom = cardsDataBlue.sort(shuffleArrayRandom);
 let brownRandom = cardsDataBrown.sort(shuffleArrayRandom);
 let greenRandom = cardsDataGreen.sort(shuffleArrayRandom);
@@ -100,7 +99,12 @@ ancients.addEventListener('click', (e) => {
 start.addEventListener('click', () => {
   start.classList.add('active');
   result.classList.add('active');
-})
+
+  selectCards();
+  splitAllSelectedCardsByStages();
+  createLittleColorDecks();
+  createTotalSelectedDeck();
+});
 
 function shuffleArrayRandom(a, b) {
   return Math.random() - 0.5;
@@ -119,7 +123,7 @@ function splitColorByStage(stage, color) {
   return stColor;
 }
 
-normal.addEventListener('click', () => {
+function splitAllSelectedCardsByStages() {
   st1blue = splitColorByStage(1, 'blue');
   st2blue = splitColorByStage(2, 'blue');
   st3blue = splitColorByStage(3, 'blue');
@@ -129,22 +133,13 @@ normal.addEventListener('click', () => {
   st1green = splitColorByStage(1, 'green');
   st2green = splitColorByStage(2, 'green');
   st3green = splitColorByStage(3, 'green');
-});
+}
 
-// function checkData() {
-//     console.log(
-//     totalSelectedDeck,
-//     scheme,
-//     typeof scheme[0]
-//   );
-// }
-
-// easiest.addEventListener('click', checkData);
-easy.addEventListener('click', () => {
+function selectCards() {
   selectedGreenCards = createCardDeck(totalGreen, greenRandom);
   selectedBrownCards = createCardDeck(totalBrown, brownRandom);
   selectedBlueCards = createCardDeck(totalBlue, blueRandom);
-});
+}
 
 function create1StageDeck() {
   if (little1GreenDeck.length > 0) {
@@ -185,7 +180,7 @@ function create3StageDeck() {
   selected3StDeck.sort(shuffleArrayRandom);
 }
 
-hard.addEventListener('click', () => {
+function createLittleColorDecks() {
   little1GreenDeck = createCardDeck(st1green, selectedGreenCards);
   little2GreenDeck = createCardDeck(st2green, selectedGreenCards);
   little3GreenDeck = createCardDeck(st3green, selectedGreenCards);
@@ -197,7 +192,9 @@ hard.addEventListener('click', () => {
   little1BlueDeck = createCardDeck(st1blue, selectedBlueCards);
   little2BlueDeck = createCardDeck(st2blue, selectedBlueCards);
   little3BlueDeck = createCardDeck(st3blue, selectedBlueCards);
+}
 
+function createTotalSelectedDeck() {
   create1StageDeck();
   create2StageDeck();
   create3StageDeck();
@@ -207,7 +204,7 @@ hard.addEventListener('click', () => {
     selected2StDeck,
     selected3StDeck
   );
-});
+}
 
 back.addEventListener('click', () => {
   let card;
