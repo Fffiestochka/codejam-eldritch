@@ -1,0 +1,236 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  color: #fff;
+}
+
+.container {
+  display: grid;
+  grid-template-rows: 40vh 20vh 40vh;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('../assets/home.jpg');
+  background-size: cover;
+}
+
+.ancients {
+  display: flex;
+  justify-content: space-around;
+  padding: 13px;
+  height: 100%;
+}
+
+.ancients > * {
+  display: flex;
+  justify-content: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 20%;
+  // height: 100%;
+  border: 2px solid #fff;
+  background-position: bottom 0px left 0px;
+  cursor: pointer;
+}
+
+.ancients > *.active {
+  border: 4px solid rgb(184, 13, 236);
+}
+
+.ancients > *:hover {
+  border: 1px solid rgb(184, 13, 236);
+	color: rgb(184, 13, 236);
+}
+
+.azathoth {
+  background-image: url('../assets/Ancients/Azathoth.jpg');
+}
+
+.cthulhu {
+  background-image: url('../assets/Ancients/Cthulthu.jpg');
+}
+
+.iogSothoth {
+  background-image: url('../assets/Ancients/IogSothoth.jpg');
+}
+
+.shubNiggurath {
+  background-image: url('../assets/Ancients/ShubNiggurath.jpg');
+}
+
+.complexity {
+  display: flex;
+  justify-content: space-between;
+  // padding: 20px;
+  align-items: center;
+  width: 50%;
+  margin: 0 auto;
+}
+
+.complexity > * {
+  width: 100px;
+  text-align: center;
+  border: 1px solid #fff;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.complexity > *:hover {
+  border: 1px solid rgb(184, 13, 236);
+	color: rgb(184, 13, 236);
+}
+
+.complexity > *.active {
+  border: 1px solid rgb(184, 13, 236);
+	color: rgb(184, 13, 236);
+}
+
+.shuffle {
+  display: flex;
+  flex-direction: column;
+  height: 50%;
+  justify-content: center;
+  align-items: center;
+	height: 100%;
+}
+.track-container {
+}
+
+.track {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid rgb(184, 13, 236);
+  background-color: rgb(104, 103, 104);
+}
+
+.complexity > *.active {
+  border: 2px solid rgb(184, 13, 236);
+  color: rgb(184, 13, 236);
+}
+
+.st {
+  display: flex;
+  padding: 15px;
+  justify-content: center;
+  align-items: center;
+}
+
+.st1::before {
+  content: '';
+  background-image: url('../assets/svg/roman_numeral_icon_1.svg');
+  // display: inline-block;
+  width: 20px;
+  height: 20px;
+  padding-right: 10px;
+}
+
+.st2::before {
+  content: '';
+  background-image: url('../assets/svg/roman_numeral_icon_2.svg');
+  // display: inline-block;
+  width: 20px;
+  height: 20px;
+  padding-right: 10px;
+}
+
+.st3::before {
+  content: '';
+  background-image: url('../assets/svg/roman_numeral_icon_3.svg');
+  background-repeat: no-repeat;
+  // display: inline-block;
+  width: 20px;
+  height: 20px;
+  padding-right: 10px;
+}
+
+.qty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin: 0 5px 0;
+  border: 1px solid black;
+  color: #000;
+  font-weight: bold;
+}
+
+.green {
+  background-color: rgb(116, 231, 135);
+}
+
+.brown {
+  background-color: rgb(163, 103, 103);
+}
+
+.blue {
+  background-color: rgb(118, 193, 236);
+}
+
+.result {
+  // display: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+  justify-items: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.result.shuffle {
+  display: flex;
+}
+
+.start {
+  display: none;
+  border: 1px solid #fff;
+  width: 100px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 10px;
+  font-size: 24px;
+  font-weight: bold;
+}
+.start:hover {
+  border: 1px solid rgb(184, 13, 236);
+	color: rgb(184, 13, 236);
+}
+
+// .back-container {
+// 	display: flex;
+// 	justify-content: center;
+// 	align-items: center;
+// 	height: 100%;
+// 	width: 100%;
+// 	padding: 0 15px 15px;
+// }
+
+.back {
+  display: flex;
+  justify-content: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 65%;
+  height: 90%;
+  background-position: bottom 0px left 0px;
+  background-image: url('../assets/mythicCardBackground.jpg');
+}
+
+// .front-container {
+// 	display: flex;
+// 	justify-content: center;
+// 	align-items: center;
+// 	height: 100%;
+// 	width: 100%;
+// 	padding: 0 15px 15px;
+// }
+
+.front {
+	// display: flex;
+  // justify-content: center;
+  width: 70%;
+  height: 90%;
+}
