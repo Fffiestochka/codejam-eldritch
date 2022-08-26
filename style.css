@@ -1,3 +1,6 @@
+/*!**************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./src/sass/style.scss ***!
+  \**************************************************************************************************************/
 * {
   padding: 0;
   margin: 0;
@@ -10,7 +13,7 @@
   grid-template-rows: 40vh 20vh 40vh;
   width: 100vw;
   height: 100vh;
-  background-image: url('../assets/home.jpg');
+  background-image: url(835c58f1f850fcfc430e.jpg);
   background-size: cover;
 }
 
@@ -27,7 +30,6 @@
   background-size: cover;
   background-repeat: no-repeat;
   width: 20%;
-  // height: 100%;
   border: 2px solid #fff;
   background-position: bottom 0px left 0px;
   cursor: pointer;
@@ -39,29 +41,28 @@
 
 .ancients > *:hover {
   border: 1px solid rgb(184, 13, 236);
-	color: rgb(184, 13, 236);
+  color: rgb(184, 13, 236);
 }
 
 .azathoth {
-  background-image: url('../assets/Ancients/Azathoth.jpg');
+  background-image: url(e13b2452ddbbdc8a45b8.jpg);
 }
 
 .cthulhu {
-  background-image: url('../assets/Ancients/Cthulthu.jpg');
+  background-image: url(5b476d6111663b661dbd.jpg);
 }
 
 .iogSothoth {
-  background-image: url('../assets/Ancients/IogSothoth.jpg');
+  background-image: url(6021dce0708c0b41b5c0.jpg);
 }
 
 .shubNiggurath {
-  background-image: url('../assets/Ancients/ShubNiggurath.jpg');
+  background-image: url(bcaa90ffec976fa3723e.jpg);
 }
 
 .complexity {
   display: flex;
   justify-content: space-between;
-  // padding: 20px;
   align-items: center;
   width: 50%;
   margin: 0 auto;
@@ -77,12 +78,12 @@
 
 .complexity > *:hover {
   border: 1px solid rgb(184, 13, 236);
-	color: rgb(184, 13, 236);
+  color: rgb(184, 13, 236);
 }
 
 .complexity > *.active {
   border: 1px solid rgb(184, 13, 236);
-	color: rgb(184, 13, 236);
+  color: rgb(184, 13, 236);
 }
 
 .shuffle {
@@ -91,9 +92,7 @@
   height: 50%;
   justify-content: center;
   align-items: center;
-	height: 100%;
-}
-.track-container {
+  height: 100%;
 }
 
 .track {
@@ -117,28 +116,25 @@
 }
 
 .st1::before {
-  content: '';
-  background-image: url('../assets/svg/roman_numeral_icon_1.svg');
-  // display: inline-block;
+  content: "";
+  background-image: url(a4a94b6a17ba53c2dd6e.svg);
   width: 20px;
   height: 20px;
   padding-right: 10px;
 }
 
 .st2::before {
-  content: '';
-  background-image: url('../assets/svg/roman_numeral_icon_2.svg');
-  // display: inline-block;
+  content: "";
+  background-image: url(b39e8ac9b945a5b3ac1d.svg);
   width: 20px;
   height: 20px;
   padding-right: 10px;
 }
 
 .st3::before {
-  content: '';
-  background-image: url('../assets/svg/roman_numeral_icon_3.svg');
+  content: "";
+  background-image: url(a3b6d612824cdbf5f81f.svg);
   background-repeat: no-repeat;
-  // display: inline-block;
   width: 20px;
   height: 20px;
   padding-right: 10px;
@@ -171,7 +167,6 @@
 
 .result {
   display: none;
-  // display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: 1fr;
   justify-items: center;
@@ -185,7 +180,6 @@
 }
 
 .start {
-  // display: none;
   border: 1px solid #fff;
   width: 100px;
   margin: 0 auto;
@@ -194,22 +188,15 @@
   font-size: 24px;
   font-weight: bold;
 }
+
 .start:hover {
   border: 1px solid rgb(184, 13, 236);
-	color: rgb(184, 13, 236);
+  color: rgb(184, 13, 236);
 }
+
 .start.active {
   display: none;
 }
-
-// .back-container {
-// 	display: flex;
-// 	justify-content: center;
-// 	align-items: center;
-// 	height: 100%;
-// 	width: 100%;
-// 	padding: 0 15px 15px;
-// }
 
 .back {
   display: flex;
@@ -219,21 +206,12 @@
   width: 65%;
   height: 90%;
   background-position: bottom 0px left 0px;
-  background-image: url('../assets/mythicCardBackground.jpg');
+  background-image: url(2351b985431f7007f854.jpg);
 }
 
-// .front-container {
-// 	display: flex;
-// 	justify-content: center;
-// 	align-items: center;
-// 	height: 100%;
-// 	width: 100%;
-// 	padding: 0 15px 15px;
-// }
-
 .front {
-	// display: flex;
-  // justify-content: center;
   width: 70%;
   height: 90%;
 }
+
+/*# sourceMappingURL=style.css.map*/
