@@ -39,7 +39,7 @@
 
 .ancients > *:hover {
   border: 1px solid rgb(184, 13, 236);
-	color: rgb(184, 13, 236);
+  color: rgb(184, 13, 236);
 }
 
 .azathoth {
@@ -77,31 +77,12 @@
 
 .complexity > *:hover {
   border: 1px solid rgb(184, 13, 236);
-	color: rgb(184, 13, 236);
+  color: rgb(184, 13, 236);
 }
 
 .complexity > *.active {
   border: 1px solid rgb(184, 13, 236);
-	color: rgb(184, 13, 236);
-}
-
-.shuffle {
-  display: flex;
-  flex-direction: column;
-  height: 50%;
-  justify-content: center;
-  align-items: center;
-	height: 100%;
-}
-.track-container {
-}
-
-.track {
-  background-color: #fff;
-  display: flex;
-  flex-direction: column;
-  border: 2px solid rgb(184, 13, 236);
-  background-color: rgb(104, 103, 104);
+  color: rgb(184, 13, 236);
 }
 
 .complexity > *.active {
@@ -169,21 +150,6 @@
   background-color: rgb(118, 193, 236);
 }
 
-.result {
-  display: none;
-  // display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: 1fr;
-  justify-items: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-}
-
-.result.active {
-  display: grid;
-}
-
 .start {
   // display: none;
   border: 1px solid #fff;
@@ -196,44 +162,58 @@
 }
 .start:hover {
   border: 1px solid rgb(184, 13, 236);
-	color: rgb(184, 13, 236);
+  color: rgb(184, 13, 236);
 }
 .start.active {
   display: none;
 }
 
-// .back-container {
-// 	display: flex;
-// 	justify-content: center;
-// 	align-items: center;
-// 	height: 100%;
-// 	width: 100%;
-// 	padding: 0 15px 15px;
-// }
-
-.back {
-  display: flex;
-  justify-content: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  width: 65%;
-  height: 90%;
-  background-position: bottom 0px left 0px;
-  background-image: url('../assets/mythicCardBackground.jpg');
+.shuffle {
+  display: block;
+  // flex-direction: column;
+  // justify-content: center;
+  // align-items: center;
+  height: 100%;
 }
 
-// .front-container {
-// 	display: flex;
-// 	justify-content: center;
-// 	align-items: center;
-// 	height: 100%;
-// 	width: 100%;
-// 	padding: 0 15px 15px;
-// }
+.result {
+  display: none;
+}
+
+.result.active {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: space-around;
+}
+
+.result > * {
+  width: 20%;
+  margin: 0 auto;
+}
+
+.track {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid rgb(184, 13, 236);
+  background-color: rgb(104, 103, 104);
+  // width: 50%;
+}
+
+.back {
+  height: 90%;
+  cursor: pointer;
+}
+.back-img {
+  display: block;
+  height: 100%;
+}
 
 .front {
-	// display: flex;
-  // justify-content: center;
-  width: 70%;
   height: 90%;
+}
+.front-img {
+  display: block;
+  height: 100%;
 }

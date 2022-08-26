@@ -2,6 +2,7 @@ import ancientsData from '../src/data/ancients.js';
 import cardsDataBlue from '../src/data/mythicCards/blue/index';
 import cardsDataBrown from '../src/data/mythicCards/brown/index';
 import cardsDataGreen from '../src/data/mythicCards/green/index';
+import cardBack from '../src/assets/mythicCardBackground.jpg';
 //========== ancients
 const ancients = document.querySelector('.ancients');
 let scheme = [];
@@ -99,6 +100,7 @@ ancients.addEventListener('click', (e) => {
 start.addEventListener('click', () => {
   start.classList.add('active');
   result.classList.add('active');
+  back.src = cardBack;
 
   selectCards();
   splitAllSelectedCardsByStages();
