@@ -26,6 +26,7 @@ const frontImg = document.querySelector('.front-img');
 const back = document.querySelector('.back');
 const complexity = document.querySelector('.complexity');
 const complex = document.querySelectorAll('.complex');
+const container = document.querySelector('.container');
 
 let blueRandom;
 let brownRandom;
@@ -130,7 +131,25 @@ start.addEventListener('click', () => {
     createLittleColorDecks();
     createTotalSelectedDeck();
   } else {
-    alert('Please choose the ancient card!');
+    showMessage('overlay', 'alert');
+    let btnClose = document.querySelector('.close');
+    let overl = document.querySelector('.overlay');
+    let btnOk = document.querySelector('.ok');
+    btnClose.addEventListener('click', (e) => {
+      if (e.target.className !== 'modal' && e.target.className !== 'message') {
+        overl.remove();
+      }
+    });
+    overl.addEventListener('click', (e) => {
+      if (e.target.className !== 'modal' && e.target.className !== 'message') {
+        overl.remove();
+      }
+    });
+    btnOk.addEventListener('click', (e) => {
+      if (e.target.className !== 'modal' && e.target.className !== 'message') {
+        overl.remove();
+      }
+    });
   }
 });
 
@@ -145,7 +164,34 @@ complexity.addEventListener('click', (e) => {
       selectAllDecksByComplexity();
     }
     if (!totalGreen) {
-      alert('Please choose the ancient card!');
+      showMessage('overlay', 'alert');
+          let btnClose = document.querySelector('.close');
+          let overl = document.querySelector('.overlay');
+          let btnOk = document.querySelector('.ok');
+          btnClose.addEventListener('click', (e) => {
+            if (
+              e.target.className !== 'modal' &&
+              e.target.className !== 'message'
+            ) {
+              overl.remove();
+            }
+          });
+          overl.addEventListener('click', (e) => {
+            if (
+              e.target.className !== 'modal' &&
+              e.target.className !== 'message'
+            ) {
+              overl.remove();
+            }
+          });
+          btnOk.addEventListener('click', (e) => {
+            if (
+              e.target.className !== 'modal' &&
+              e.target.className !== 'message'
+            ) {
+              overl.remove();
+            }
+          });
     }
     selectDecksByComplexity(e.target.className);
   } else {
@@ -154,12 +200,6 @@ complexity.addEventListener('click', (e) => {
     startBlueDeck = cardsDataBlue.sort(shuffleArrayRandom);
   }
 
-  console.log(
-    selectedHardGreenCards,
-    selectedHardBrownCards,
-    selectedHardBlueCards
-  );
-  console.log(startGreenDeck, startBrownDeck, startBlueDeck);
 });
 
 back.addEventListener('click', () => {
@@ -311,6 +351,11 @@ function showCard() {
     }
   } else {
     frontImg.style.display = 'none';
+    showMessage('over-finish', 'finish');
+    let btn = document.querySelector('.new-shuffle');
+    btn.addEventListener('click', () => {
+      location.reload();
+    });
   }
 }
 
@@ -424,4 +469,36 @@ function selectDeckByComplexity(qty1, basic, additional = []) {
     }
   }
   return arr.sort(shuffleArrayRandom);
+}
+
+function showMessage(classes, type) {
+  if (type !== 'finish') {
+    let newMessage = 'Please choose the ancient card!';
+    createAlert(classes, newMessage, type);
+  } else if (type === 'finish') {
+    let newMessage = 'Please click the button to start new shuffle!';
+    createFinish(classes, newMessage);
+  }
+}
+
+function createAlert(classes, newMessage) {
+  let element = document.createElement('div');
+  element.classList.add(classes);
+  container.append(element);
+  element.innerHTML = `<div class="modal">
+          <div class="btn close">
+            <div class="x">x</div>
+          </div>
+          <div class="message">${newMessage}</div>
+          <div class="btn ok">OK</div>
+        </div>`;
+}
+function createFinish(classes, newMessage) {
+  let element = document.createElement('div');
+  element.classList.add(classes);
+  container.append(element);
+  element.innerHTML = `<div class="modal">
+          <div class="message">${newMessage}</div>
+          <div class="btn new-shuffle">New shuffle!</div>
+        </div>`;
 }
