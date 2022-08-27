@@ -24,15 +24,12 @@ const start = document.querySelector('.start');
 const result = document.querySelector('.result');
 const frontImg = document.querySelector('.front-img');
 const back = document.querySelector('.back');
+const complexity = document.querySelector('.complexity');
+const complex = document.querySelectorAll('.complex');
 
-const easiest = document.querySelector('.easiest');
-const easy = document.querySelector('.easy');
-const normal = document.querySelector('.normal');
-const hard = document.querySelector('.hard');
-
-let blueRandom = cardsDataBlue.sort(shuffleArrayRandom);
-let brownRandom = cardsDataBrown.sort(shuffleArrayRandom);
-let greenRandom = cardsDataGreen.sort(shuffleArrayRandom);
+let blueRandom;
+let brownRandom;
+let greenRandom;
 
 let st1blue;
 let st2blue;
@@ -43,6 +40,23 @@ let st3brown;
 let st1green;
 let st2green;
 let st3green;
+//=================
+let selectedEasyGreenCards; // массив объектов
+let selectedEasyBrownCards; // массив объектов
+let selectedEasyBlueCards; // массив объектов
+
+let selectedNormalGreenCards;
+let selectedNormalBrownCards;
+let selectedNormalBlueCards;
+
+let selectedHardGreenCards;
+let selectedHardBrownCards;
+let selectedHardBlueCards;
+//==================
+let startGreenDeck;
+let startBrownDeck;
+let startBlueDeck;
+//==================
 
 let selectedGreenCards; // массив объектов
 let selectedBrownCards;
@@ -67,6 +81,9 @@ let selected3StDeck = [];
 let totalSelectedDeck;
 
 ancients.addEventListener('click', (e) => {
+  start.classList.remove('active');
+  result.classList.remove('active');
+
   let choosedCardName = e.target.className.split(' ')[0]; // cthulhu
 
   ancientCards.forEach((ancientCard) => {
@@ -98,14 +115,55 @@ ancients.addEventListener('click', (e) => {
 });
 
 start.addEventListener('click', () => {
-  start.classList.add('active');
-  result.classList.add('active');
-  back.src = cardBack;
+  if (!startGreenDeck) {
+    startGreenDeck = cardsDataGreen.sort(shuffleArrayRandom);
+    startBrownDeck = cardsDataBrown.sort(shuffleArrayRandom);
+    startBlueDeck = cardsDataBlue.sort(shuffleArrayRandom);
+  }
+  if (totalGreen && totalBrown && totalBlue) {
+    start.classList.add('active');
+    result.classList.add('active');
+    back.src = cardBack;
 
-  selectCards();
-  splitAllSelectedCardsByStages();
-  createLittleColorDecks();
-  createTotalSelectedDeck();
+    selectCards();
+    splitAllSelectedCardsByStages();
+    createLittleColorDecks();
+    createTotalSelectedDeck();
+  } else {
+    alert('Please choose the ancient card!');
+  }
+});
+
+complexity.addEventListener('click', (e) => {
+  start.classList.remove('active');
+  result.classList.remove('active');
+  complex.forEach((item) => item.classList.remove('active'));
+  e.target.classList.add('active');
+
+  if (e.target.className != 'normal') {
+    if (!selectedEasyGreenCards) {
+      selectAllDecksByComplexity();
+    }
+    if (!totalGreen) {
+      alert('Please choose the ancient card!');
+    }
+    selectDecksByComplexity(e.target.className);
+  } else {
+    startGreenDeck = cardsDataGreen.sort(shuffleArrayRandom);
+    startBrownDeck = cardsDataBrown.sort(shuffleArrayRandom);
+    startBlueDeck = cardsDataBlue.sort(shuffleArrayRandom);
+  }
+
+  console.log(
+    selectedHardGreenCards,
+    selectedHardBrownCards,
+    selectedHardBlueCards
+  );
+  console.log(startGreenDeck, startBrownDeck, startBlueDeck);
+});
+
+back.addEventListener('click', () => {
+  showCard();
 });
 
 function shuffleArrayRandom(a, b) {
@@ -138,9 +196,9 @@ function splitAllSelectedCardsByStages() {
 }
 
 function selectCards() {
-  selectedGreenCards = createCardDeck(totalGreen, greenRandom);
-  selectedBrownCards = createCardDeck(totalBrown, brownRandom);
-  selectedBlueCards = createCardDeck(totalBlue, blueRandom);
+  selectedGreenCards = createCardDeck(totalGreen, startGreenDeck);
+  selectedBrownCards = createCardDeck(totalBrown, startBrownDeck);
+  selectedBlueCards = createCardDeck(totalBlue, startBlueDeck);
 }
 
 function create1StageDeck() {
@@ -208,14 +266,13 @@ function createTotalSelectedDeck() {
   );
 }
 
-back.addEventListener('click', () => {
+function showCard() {
   let card;
   let cardColor;
   let cardFace;
   if (totalSelectedDeck[0].length > 0) {
     card = totalSelectedDeck[0].pop();
     cardColor = card.color;
-    console.log(cardColor);
     cardFace = card.cardFace;
     frontImg.src = cardFace;
 
@@ -255,4 +312,116 @@ back.addEventListener('click', () => {
   } else {
     frontImg.style.display = 'none';
   }
-});
+}
+
+function selectAllDecksByComplexity() {
+  selectedEasyGreenCards = cardsDataGreen
+    .filter((card) => card.difficulty === 'easy')
+    .sort(shuffleArrayRandom);
+  selectedEasyBrownCards = cardsDataBrown
+    .filter((card) => card.difficulty === 'easy')
+    .sort(shuffleArrayRandom);
+  selectedEasyBlueCards = cardsDataBlue
+    .filter((card) => card.difficulty === 'easy')
+    .sort(shuffleArrayRandom);
+
+  selectedNormalGreenCards = cardsDataGreen
+    .filter((card) => card.difficulty === 'normal')
+    .sort(shuffleArrayRandom);
+  selectedNormalBrownCards = cardsDataBrown
+    .filter((card) => card.difficulty === 'normal')
+    .sort(shuffleArrayRandom);
+  selectedNormalBlueCards = cardsDataBlue
+    .filter((card) => card.difficulty === 'normal')
+    .sort(shuffleArrayRandom);
+
+  selectedHardGreenCards = cardsDataGreen
+    .filter((card) => card.difficulty === 'hard')
+    .sort(shuffleArrayRandom);
+  selectedHardBrownCards = cardsDataBrown
+    .filter((card) => card.difficulty === 'hard')
+    .sort(shuffleArrayRandom);
+  selectedHardBlueCards = cardsDataBlue
+    .filter((card) => card.difficulty === 'hard')
+    .sort(shuffleArrayRandom);
+}
+
+function selectDecksByComplexity(complexity) {
+  if (complexity.includes('easiest')) {
+    startGreenDeck = selectDeckByComplexity(
+      totalGreen,
+      selectedEasyGreenCards,
+      selectedNormalGreenCards
+    );
+    startBrownDeck = selectDeckByComplexity(
+      totalBrown,
+      selectedEasyBrownCards,
+      selectedNormalBrownCards
+    );
+    startBlueDeck = selectDeckByComplexity(
+      totalBlue,
+      selectedEasyBlueCards,
+      selectedNormalBlueCards
+    );
+  } else if (complexity.includes('easy')) {
+    let arrGreen = [
+      ...selectedEasyGreenCards,
+      ...selectedNormalGreenCards,
+    ].sort(shuffleArrayRandom);
+    let arrBrown = [
+      ...selectedEasyBrownCards,
+      ...selectedNormalBrownCards,
+    ].sort(shuffleArrayRandom);
+    let arrBlue = [...selectedEasyBlueCards, ...selectedNormalBlueCards].sort(
+      shuffleArrayRandom
+    );
+    startGreenDeck = selectDeckByComplexity(totalGreen, arrGreen);
+    startBrownDeck = selectDeckByComplexity(totalBrown, arrBrown);
+    startBlueDeck = selectDeckByComplexity(totalBlue, arrBlue);
+  } else if (complexity.includes('hardest')) {
+    startGreenDeck = selectDeckByComplexity(
+      totalGreen,
+      selectedHardGreenCards,
+      selectedNormalGreenCards
+    );
+    startBrownDeck = selectDeckByComplexity(
+      totalBrown,
+      selectedHardBrownCards,
+      selectedNormalBrownCards
+    );
+    startBlueDeck = selectDeckByComplexity(
+      totalBlue,
+      selectedHardBlueCards,
+      selectedNormalBlueCards
+    );
+  } else {
+    let arrGreen = [
+      ...selectedHardGreenCards,
+      ...selectedNormalGreenCards,
+    ].sort(shuffleArrayRandom);
+    let arrBrown = [
+      ...selectedHardBrownCards,
+      ...selectedNormalBrownCards,
+    ].sort(shuffleArrayRandom);
+    let arrBlue = [...selectedHardBlueCards, ...selectedNormalBlueCards].sort(
+      shuffleArrayRandom
+    );
+    startGreenDeck = selectDeckByComplexity(totalGreen, arrGreen);
+    startBrownDeck = selectDeckByComplexity(totalBrown, arrBrown);
+    startBlueDeck = selectDeckByComplexity(totalBlue, arrBlue);
+  }
+}
+
+function selectDeckByComplexity(qty1, basic, additional = []) {
+  let arr;
+  if (basic.length >= qty1) {
+    arr = createCardDeck(qty1, basic);
+  } else {
+    arr = basic.slice();
+    while (arr.length < qty1) {
+      let card = additional.pop();
+      arr.push(card);
+    }
+  }
+  return arr.sort(shuffleArrayRandom);
+}
