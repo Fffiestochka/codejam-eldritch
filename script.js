@@ -1178,6 +1178,16 @@ module.exports = __webpack_require__.p + "77f8ffb62cad31d95fd4.jpg";
 
 module.exports = __webpack_require__.p + "5632026b35cfd53313c4.jpg";
 
+/***/ }),
+
+/***/ "./src/assets/mythicCardBackground.jpg":
+/*!*********************************************!*\
+  !*** ./src/assets/mythicCardBackground.jpg ***!
+  \*********************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "2351b985431f7007f854.jpg";
+
 /***/ })
 
 /******/ 	});
@@ -1280,6 +1290,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _src_data_mythicCards_blue_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../src/data/mythicCards/blue/index */ "./src/data/mythicCards/blue/index.js");
 /* harmony import */ var _src_data_mythicCards_brown_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../src/data/mythicCards/brown/index */ "./src/data/mythicCards/brown/index.js");
 /* harmony import */ var _src_data_mythicCards_green_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../src/data/mythicCards/green/index */ "./src/data/mythicCards/green/index.js");
+/* harmony import */ var _src_assets_mythicCardBackground_jpg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../src/assets/mythicCardBackground.jpg */ "./src/assets/mythicCardBackground.jpg");
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+
 
 
 
@@ -1305,13 +1329,13 @@ var start = document.querySelector('.start');
 var result = document.querySelector('.result');
 var frontImg = document.querySelector('.front-img');
 var back = document.querySelector('.back');
-var easiest = document.querySelector('.easiest');
-var easy = document.querySelector('.easy');
-var normal = document.querySelector('.normal');
-var hard = document.querySelector('.hard');
-var blueRandom = _src_data_mythicCards_blue_index__WEBPACK_IMPORTED_MODULE_1__["default"].sort(shuffleArrayRandom);
-var brownRandom = _src_data_mythicCards_brown_index__WEBPACK_IMPORTED_MODULE_2__["default"].sort(shuffleArrayRandom);
-var greenRandom = _src_data_mythicCards_green_index__WEBPACK_IMPORTED_MODULE_3__["default"].sort(shuffleArrayRandom);
+var front = document.querySelector('.front');
+var complexity = document.querySelector('.complexity');
+var complex = document.querySelectorAll('.complex');
+var container = document.querySelector('.container');
+var blueRandom;
+var brownRandom;
+var greenRandom;
 var st1blue;
 var st2blue;
 var st3blue;
@@ -1320,7 +1344,25 @@ var st2brown;
 var st3brown;
 var st1green;
 var st2green;
-var st3green;
+var st3green; //=================
+
+var selectedEasyGreenCards; // массив объектов
+
+var selectedEasyBrownCards; // массив объектов
+
+var selectedEasyBlueCards; // массив объектов
+
+var selectedNormalGreenCards;
+var selectedNormalBrownCards;
+var selectedNormalBlueCards;
+var selectedHardGreenCards;
+var selectedHardBrownCards;
+var selectedHardBlueCards; //==================
+
+var startGreenDeck;
+var startBrownDeck;
+var startBlueDeck; //==================
+
 var selectedGreenCards; // массив объектов
 
 var selectedBrownCards;
@@ -1339,7 +1381,10 @@ var selected1StDeck = []; // массив из массивов с объект�
 var selected2StDeck = [];
 var selected3StDeck = [];
 var totalSelectedDeck;
+var choosedComplexity;
 ancients.addEventListener('click', function (e) {
+  start.classList.remove('active');
+  result.classList.remove('active');
   var choosedCardName = e.target.className.split(' ')[0]; // cthulhu
 
   ancientCards.forEach(function (ancientCard) {
@@ -1363,13 +1408,101 @@ ancients.addEventListener('click', function (e) {
   totalBrown = +brown1.textContent + +brown2.textContent + +brown3.textContent;
   totalBlue = +blue1.textContent + +blue2.textContent + +blue3.textContent;
 });
+complexity.addEventListener('click', function (e) {
+  start.classList.remove('active');
+  result.classList.remove('active');
+  complex.forEach(function (item) {
+    return item.classList.remove('active');
+  });
+  e.target.classList.add('active');
+  choosedComplexity = e.target.className;
+});
 start.addEventListener('click', function () {
-  start.classList.add('active');
-  result.classList.add('active');
-  selectCards();
-  splitAllSelectedCardsByStages();
-  createLittleColorDecks();
-  createTotalSelectedDeck();
+  if (choosedComplexity && choosedComplexity != 'normal') {
+    if (!selectedEasyGreenCards) {
+      selectAllDecksByComplexity();
+    } // if (!totalGreen) {
+    //   showMessage('overlay', 'alert');
+    //   let btnClose = document.querySelector('.close');
+    //   let overl = document.querySelector('.overlay');
+    //   let btnOk = document.querySelector('.ok');
+    //   btnClose.addEventListener('click', (e) => {
+    //     if (
+    //       e.target.className !== 'modal' &&
+    //       e.target.className !== 'message'
+    //     ) {
+    //       overl.remove();
+    //     }
+    //   });
+    //   overl.addEventListener('click', (e) => {
+    //     if (
+    //       e.target.className !== 'modal' &&
+    //       e.target.className !== 'message'
+    //     ) {
+    //       overl.remove();
+    //     }
+    //   });
+    //   btnOk.addEventListener('click', (e) => {
+    //     if (
+    //       e.target.className !== 'modal' &&
+    //       e.target.className !== 'message'
+    //     ) {
+    //       overl.remove();
+    //     }
+    //   });
+    // }
+
+
+    selectDecksByComplexity(choosedComplexity);
+  } else {
+    startGreenDeck = _src_data_mythicCards_green_index__WEBPACK_IMPORTED_MODULE_3__["default"].sort(shuffleArrayRandom);
+    startBrownDeck = _src_data_mythicCards_brown_index__WEBPACK_IMPORTED_MODULE_2__["default"].sort(shuffleArrayRandom);
+    startBlueDeck = _src_data_mythicCards_blue_index__WEBPACK_IMPORTED_MODULE_1__["default"].sort(shuffleArrayRandom);
+  }
+
+  if (!startGreenDeck) {
+    startGreenDeck = _src_data_mythicCards_green_index__WEBPACK_IMPORTED_MODULE_3__["default"].sort(shuffleArrayRandom);
+    startBrownDeck = _src_data_mythicCards_brown_index__WEBPACK_IMPORTED_MODULE_2__["default"].sort(shuffleArrayRandom);
+    startBlueDeck = _src_data_mythicCards_blue_index__WEBPACK_IMPORTED_MODULE_1__["default"].sort(shuffleArrayRandom);
+  }
+
+  if (totalGreen && totalBrown && totalBlue) {
+    start.classList.add('active');
+    result.classList.add('active');
+    ancients.classList.add('none');
+    complexity.classList.add('none');
+    container.classList.add('active');
+    back.classList.add('active');
+    front.classList.add('active');
+    back.src = _src_assets_mythicCardBackground_jpg__WEBPACK_IMPORTED_MODULE_4__;
+    selectCards();
+    splitAllSelectedCardsByStages();
+    createLittleColorDecks();
+    createTotalSelectedDeck();
+  } else {
+    showMessage('overlay', 'alert');
+    var btnClose = document.querySelector('.close');
+    var overl = document.querySelector('.overlay');
+    var btnOk = document.querySelector('.ok');
+    btnClose.addEventListener('click', function (e) {
+      if (e.target.className !== 'modal' && e.target.className !== 'message') {
+        overl.remove();
+      }
+    });
+    overl.addEventListener('click', function (e) {
+      if (e.target.className !== 'modal' && e.target.className !== 'message') {
+        overl.remove();
+      }
+    });
+    btnOk.addEventListener('click', function (e) {
+      if (e.target.className !== 'modal' && e.target.className !== 'message') {
+        overl.remove();
+      }
+    });
+  }
+});
+back.addEventListener('click', function () {
+  showCard();
 });
 
 function shuffleArrayRandom(a, b) {
@@ -1404,9 +1537,9 @@ function splitAllSelectedCardsByStages() {
 }
 
 function selectCards() {
-  selectedGreenCards = createCardDeck(totalGreen, greenRandom);
-  selectedBrownCards = createCardDeck(totalBrown, brownRandom);
-  selectedBlueCards = createCardDeck(totalBlue, blueRandom);
+  selectedGreenCards = createCardDeck(totalGreen, startGreenDeck);
+  selectedBrownCards = createCardDeck(totalBrown, startBrownDeck);
+  selectedBlueCards = createCardDeck(totalBlue, startBlueDeck);
 }
 
 function create1StageDeck() {
@@ -1476,7 +1609,7 @@ function createTotalSelectedDeck() {
   totalSelectedDeck = new Array(selected1StDeck, selected2StDeck, selected3StDeck);
 }
 
-back.addEventListener('click', function () {
+function showCard() {
   var card;
   var cardColor;
   var cardFace;
@@ -1484,7 +1617,6 @@ back.addEventListener('click', function () {
   if (totalSelectedDeck[0].length > 0) {
     card = totalSelectedDeck[0].pop();
     cardColor = card.color;
-    console.log(cardColor);
     cardFace = card.cardFace;
     frontImg.src = cardFace;
 
@@ -1523,8 +1655,114 @@ back.addEventListener('click', function () {
     }
   } else {
     frontImg.style.display = 'none';
+    showMessage('over-finish', 'finish');
+    var btn = document.querySelector('.new-shuffle');
+    btn.addEventListener('click', function () {
+      location.reload();
+    });
   }
-});
+}
+
+function selectAllDecksByComplexity() {
+  selectedEasyGreenCards = _src_data_mythicCards_green_index__WEBPACK_IMPORTED_MODULE_3__["default"].filter(function (card) {
+    return card.difficulty === 'easy';
+  }).sort(shuffleArrayRandom);
+  selectedEasyBrownCards = _src_data_mythicCards_brown_index__WEBPACK_IMPORTED_MODULE_2__["default"].filter(function (card) {
+    return card.difficulty === 'easy';
+  }).sort(shuffleArrayRandom);
+  selectedEasyBlueCards = _src_data_mythicCards_blue_index__WEBPACK_IMPORTED_MODULE_1__["default"].filter(function (card) {
+    return card.difficulty === 'easy';
+  }).sort(shuffleArrayRandom);
+  selectedNormalGreenCards = _src_data_mythicCards_green_index__WEBPACK_IMPORTED_MODULE_3__["default"].filter(function (card) {
+    return card.difficulty === 'normal';
+  }).sort(shuffleArrayRandom);
+  selectedNormalBrownCards = _src_data_mythicCards_brown_index__WEBPACK_IMPORTED_MODULE_2__["default"].filter(function (card) {
+    return card.difficulty === 'normal';
+  }).sort(shuffleArrayRandom);
+  selectedNormalBlueCards = _src_data_mythicCards_blue_index__WEBPACK_IMPORTED_MODULE_1__["default"].filter(function (card) {
+    return card.difficulty === 'normal';
+  }).sort(shuffleArrayRandom);
+  selectedHardGreenCards = _src_data_mythicCards_green_index__WEBPACK_IMPORTED_MODULE_3__["default"].filter(function (card) {
+    return card.difficulty === 'hard';
+  }).sort(shuffleArrayRandom);
+  selectedHardBrownCards = _src_data_mythicCards_brown_index__WEBPACK_IMPORTED_MODULE_2__["default"].filter(function (card) {
+    return card.difficulty === 'hard';
+  }).sort(shuffleArrayRandom);
+  selectedHardBlueCards = _src_data_mythicCards_blue_index__WEBPACK_IMPORTED_MODULE_1__["default"].filter(function (card) {
+    return card.difficulty === 'hard';
+  }).sort(shuffleArrayRandom);
+}
+
+function selectDecksByComplexity(complexity) {
+  if (complexity.includes('easiest')) {
+    startGreenDeck = selectDeckByComplexity(totalGreen, selectedEasyGreenCards, selectedNormalGreenCards);
+    startBrownDeck = selectDeckByComplexity(totalBrown, selectedEasyBrownCards, selectedNormalBrownCards);
+    startBlueDeck = selectDeckByComplexity(totalBlue, selectedEasyBlueCards, selectedNormalBlueCards);
+  } else if (complexity.includes('easy')) {
+    var arrGreen = [].concat(_toConsumableArray(selectedEasyGreenCards), _toConsumableArray(selectedNormalGreenCards)).sort(shuffleArrayRandom);
+    var arrBrown = [].concat(_toConsumableArray(selectedEasyBrownCards), _toConsumableArray(selectedNormalBrownCards)).sort(shuffleArrayRandom);
+    var arrBlue = [].concat(_toConsumableArray(selectedEasyBlueCards), _toConsumableArray(selectedNormalBlueCards)).sort(shuffleArrayRandom);
+    startGreenDeck = selectDeckByComplexity(totalGreen, arrGreen);
+    startBrownDeck = selectDeckByComplexity(totalBrown, arrBrown);
+    startBlueDeck = selectDeckByComplexity(totalBlue, arrBlue);
+  } else if (complexity.includes('hardest')) {
+    startGreenDeck = selectDeckByComplexity(totalGreen, selectedHardGreenCards, selectedNormalGreenCards);
+    startBrownDeck = selectDeckByComplexity(totalBrown, selectedHardBrownCards, selectedNormalBrownCards);
+    startBlueDeck = selectDeckByComplexity(totalBlue, selectedHardBlueCards, selectedNormalBlueCards);
+  } else {
+    var _arrGreen = [].concat(_toConsumableArray(selectedHardGreenCards), _toConsumableArray(selectedNormalGreenCards)).sort(shuffleArrayRandom);
+
+    var _arrBrown = [].concat(_toConsumableArray(selectedHardBrownCards), _toConsumableArray(selectedNormalBrownCards)).sort(shuffleArrayRandom);
+
+    var _arrBlue = [].concat(_toConsumableArray(selectedHardBlueCards), _toConsumableArray(selectedNormalBlueCards)).sort(shuffleArrayRandom);
+
+    startGreenDeck = selectDeckByComplexity(totalGreen, _arrGreen);
+    startBrownDeck = selectDeckByComplexity(totalBrown, _arrBrown);
+    startBlueDeck = selectDeckByComplexity(totalBlue, _arrBlue);
+  }
+}
+
+function selectDeckByComplexity(qty1, basic) {
+  var additional = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : [];
+  var arr;
+
+  if (basic.length >= qty1) {
+    arr = createCardDeck(qty1, basic);
+  } else {
+    arr = basic.slice();
+
+    while (arr.length < qty1) {
+      var card = additional.pop();
+      arr.push(card);
+    }
+  }
+
+  return arr.sort(shuffleArrayRandom);
+}
+
+function showMessage(classes, type) {
+  if (type !== 'finish') {
+    var newMessage = 'Please choose the ancient card!';
+    createAlert(classes, newMessage, type);
+  } else if (type === 'finish') {
+    var _newMessage = 'Please click the button to start new shuffle!';
+    createFinish(classes, _newMessage);
+  }
+}
+
+function createAlert(classes, newMessage) {
+  var element = document.createElement('div');
+  element.classList.add(classes);
+  container.append(element);
+  element.innerHTML = "<div class=\"modal\">\n          <div class=\"btn close\">\n            <div class=\"x\">x</div>\n          </div>\n          <div class=\"message\">".concat(newMessage, "</div>\n          <div class=\"btn ok\">OK</div>\n        </div>");
+}
+
+function createFinish(classes, newMessage) {
+  var element = document.createElement('div');
+  element.classList.add(classes);
+  container.append(element);
+  element.innerHTML = "<div class=\"modal\">\n          <div class=\"message\">".concat(newMessage, "</div>\n          <div class=\"btn new-shuffle\">New shuffle!</div>\n        </div>");
+}
 })();
 
 // This entry need to be wrapped in an IIFE because it need to be isolated against other entry modules.
