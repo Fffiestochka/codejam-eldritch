@@ -1418,47 +1418,15 @@ complexity.addEventListener('click', function (e) {
   choosedComplexity = e.target.className;
 });
 start.addEventListener('click', function () {
-  if (choosedComplexity && choosedComplexity != 'normal') {
-    if (!selectedEasyGreenCards) {
-      selectAllDecksByComplexity();
-    } // if (!totalGreen) {
-    //   showMessage('overlay', 'alert');
-    //   let btnClose = document.querySelector('.close');
-    //   let overl = document.querySelector('.overlay');
-    //   let btnOk = document.querySelector('.ok');
-    //   btnClose.addEventListener('click', (e) => {
-    //     if (
-    //       e.target.className !== 'modal' &&
-    //       e.target.className !== 'message'
-    //     ) {
-    //       overl.remove();
-    //     }
-    //   });
-    //   overl.addEventListener('click', (e) => {
-    //     if (
-    //       e.target.className !== 'modal' &&
-    //       e.target.className !== 'message'
-    //     ) {
-    //       overl.remove();
-    //     }
-    //   });
-    //   btnOk.addEventListener('click', (e) => {
-    //     if (
-    //       e.target.className !== 'modal' &&
-    //       e.target.className !== 'message'
-    //     ) {
-    //       overl.remove();
-    //     }
-    //   });
-    // }
-
-
-    selectDecksByComplexity(choosedComplexity);
-  } else {
-    startGreenDeck = _src_data_mythicCards_green_index__WEBPACK_IMPORTED_MODULE_3__["default"].sort(shuffleArrayRandom);
-    startBrownDeck = _src_data_mythicCards_brown_index__WEBPACK_IMPORTED_MODULE_2__["default"].sort(shuffleArrayRandom);
-    startBlueDeck = _src_data_mythicCards_blue_index__WEBPACK_IMPORTED_MODULE_1__["default"].sort(shuffleArrayRandom);
+  if (!choosedComplexity) {
+    choosedComplexity = 'normal';
   }
+
+  if (!selectedEasyGreenCards) {
+    selectAllDecksByComplexity();
+  }
+
+  selectDecksByComplexity(choosedComplexity);
 
   if (!startGreenDeck) {
     startGreenDeck = _src_data_mythicCards_green_index__WEBPACK_IMPORTED_MODULE_3__["default"].sort(shuffleArrayRandom);
@@ -1705,6 +1673,10 @@ function selectDecksByComplexity(complexity) {
     startGreenDeck = selectDeckByComplexity(totalGreen, arrGreen);
     startBrownDeck = selectDeckByComplexity(totalBrown, arrBrown);
     startBlueDeck = selectDeckByComplexity(totalBlue, arrBlue);
+  } else if (complexity.includes('normal')) {
+    startGreenDeck = selectDeckByComplexity(totalGreen, _src_data_mythicCards_green_index__WEBPACK_IMPORTED_MODULE_3__["default"].sort(shuffleArrayRandom));
+    startBrownDeck = selectDeckByComplexity(totalBrown, _src_data_mythicCards_brown_index__WEBPACK_IMPORTED_MODULE_2__["default"].sort(shuffleArrayRandom));
+    startBlueDeck = selectDeckByComplexity(totalBlue, _src_data_mythicCards_blue_index__WEBPACK_IMPORTED_MODULE_1__["default"].sort(shuffleArrayRandom));
   } else if (complexity.includes('hardest')) {
     startGreenDeck = selectDeckByComplexity(totalGreen, selectedHardGreenCards, selectedNormalGreenCards);
     startBrownDeck = selectDeckByComplexity(totalBrown, selectedHardBrownCards, selectedNormalBrownCards);
