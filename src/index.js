@@ -24,6 +24,8 @@ const start = document.querySelector('.start');
 const result = document.querySelector('.result');
 const frontImg = document.querySelector('.front-img');
 const back = document.querySelector('.back');
+const front = document.querySelector('.front');
+
 const complexity = document.querySelector('.complexity');
 const complex = document.querySelectorAll('.complex');
 const container = document.querySelector('.container');
@@ -81,6 +83,8 @@ let selected3StDeck = [];
 
 let totalSelectedDeck;
 
+let choosedComplexity;
+
 ancients.addEventListener('click', (e) => {
   start.classList.remove('active');
   result.classList.remove('active');
@@ -115,7 +119,60 @@ ancients.addEventListener('click', (e) => {
   totalBlue = +blue1.textContent + +blue2.textContent + +blue3.textContent;
 });
 
+
+complexity.addEventListener('click', (e) => {
+  start.classList.remove('active');
+  result.classList.remove('active');
+  complex.forEach((item) => item.classList.remove('active'));
+  e.target.classList.add('active');
+  choosedComplexity = e.target.className;
+});
+
+
+
+
 start.addEventListener('click', () => {
+
+  if (choosedComplexity && choosedComplexity != 'normal') {
+    if (!selectedEasyGreenCards) {
+      selectAllDecksByComplexity();
+    }
+    // if (!totalGreen) {
+    //   showMessage('overlay', 'alert');
+    //   let btnClose = document.querySelector('.close');
+    //   let overl = document.querySelector('.overlay');
+    //   let btnOk = document.querySelector('.ok');
+    //   btnClose.addEventListener('click', (e) => {
+    //     if (
+    //       e.target.className !== 'modal' &&
+    //       e.target.className !== 'message'
+    //     ) {
+    //       overl.remove();
+    //     }
+    //   });
+    //   overl.addEventListener('click', (e) => {
+    //     if (
+    //       e.target.className !== 'modal' &&
+    //       e.target.className !== 'message'
+    //     ) {
+    //       overl.remove();
+    //     }
+    //   });
+    //   btnOk.addEventListener('click', (e) => {
+    //     if (
+    //       e.target.className !== 'modal' &&
+    //       e.target.className !== 'message'
+    //     ) {
+    //       overl.remove();
+    //     }
+    //   });
+    // }
+    selectDecksByComplexity(choosedComplexity);
+  } else {
+    startGreenDeck = cardsDataGreen.sort(shuffleArrayRandom);
+    startBrownDeck = cardsDataBrown.sort(shuffleArrayRandom);
+    startBlueDeck = cardsDataBlue.sort(shuffleArrayRandom);
+  }
   if (!startGreenDeck) {
     startGreenDeck = cardsDataGreen.sort(shuffleArrayRandom);
     startBrownDeck = cardsDataBrown.sort(shuffleArrayRandom);
@@ -124,6 +181,12 @@ start.addEventListener('click', () => {
   if (totalGreen && totalBrown && totalBlue) {
     start.classList.add('active');
     result.classList.add('active');
+    ancients.classList.add('none');
+    complexity.classList.add('none');
+    container.classList.add('active');
+    back.classList.add('active');
+    front.classList.add('active');
+
     back.src = cardBack;
 
     selectCards();
@@ -153,54 +216,8 @@ start.addEventListener('click', () => {
   }
 });
 
-complexity.addEventListener('click', (e) => {
-  start.classList.remove('active');
-  result.classList.remove('active');
-  complex.forEach((item) => item.classList.remove('active'));
-  e.target.classList.add('active');
 
-  if (e.target.className != 'normal') {
-    if (!selectedEasyGreenCards) {
-      selectAllDecksByComplexity();
-    }
-    if (!totalGreen) {
-      showMessage('overlay', 'alert');
-          let btnClose = document.querySelector('.close');
-          let overl = document.querySelector('.overlay');
-          let btnOk = document.querySelector('.ok');
-          btnClose.addEventListener('click', (e) => {
-            if (
-              e.target.className !== 'modal' &&
-              e.target.className !== 'message'
-            ) {
-              overl.remove();
-            }
-          });
-          overl.addEventListener('click', (e) => {
-            if (
-              e.target.className !== 'modal' &&
-              e.target.className !== 'message'
-            ) {
-              overl.remove();
-            }
-          });
-          btnOk.addEventListener('click', (e) => {
-            if (
-              e.target.className !== 'modal' &&
-              e.target.className !== 'message'
-            ) {
-              overl.remove();
-            }
-          });
-    }
-    selectDecksByComplexity(e.target.className);
-  } else {
-    startGreenDeck = cardsDataGreen.sort(shuffleArrayRandom);
-    startBrownDeck = cardsDataBrown.sort(shuffleArrayRandom);
-    startBlueDeck = cardsDataBlue.sort(shuffleArrayRandom);
-  }
 
-});
 
 back.addEventListener('click', () => {
   showCard();
