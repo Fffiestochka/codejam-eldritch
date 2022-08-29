@@ -119,7 +119,6 @@ ancients.addEventListener('click', (e) => {
   totalBlue = +blue1.textContent + +blue2.textContent + +blue3.textContent;
 });
 
-
 complexity.addEventListener('click', (e) => {
   start.classList.remove('active');
   result.classList.remove('active');
@@ -128,51 +127,15 @@ complexity.addEventListener('click', (e) => {
   choosedComplexity = e.target.className;
 });
 
-
-
-
 start.addEventListener('click', () => {
-
-  if (choosedComplexity && choosedComplexity != 'normal') {
-    if (!selectedEasyGreenCards) {
-      selectAllDecksByComplexity();
-    }
-    // if (!totalGreen) {
-    //   showMessage('overlay', 'alert');
-    //   let btnClose = document.querySelector('.close');
-    //   let overl = document.querySelector('.overlay');
-    //   let btnOk = document.querySelector('.ok');
-    //   btnClose.addEventListener('click', (e) => {
-    //     if (
-    //       e.target.className !== 'modal' &&
-    //       e.target.className !== 'message'
-    //     ) {
-    //       overl.remove();
-    //     }
-    //   });
-    //   overl.addEventListener('click', (e) => {
-    //     if (
-    //       e.target.className !== 'modal' &&
-    //       e.target.className !== 'message'
-    //     ) {
-    //       overl.remove();
-    //     }
-    //   });
-    //   btnOk.addEventListener('click', (e) => {
-    //     if (
-    //       e.target.className !== 'modal' &&
-    //       e.target.className !== 'message'
-    //     ) {
-    //       overl.remove();
-    //     }
-    //   });
-    // }
-    selectDecksByComplexity(choosedComplexity);
-  } else {
-    startGreenDeck = cardsDataGreen.sort(shuffleArrayRandom);
-    startBrownDeck = cardsDataBrown.sort(shuffleArrayRandom);
-    startBlueDeck = cardsDataBlue.sort(shuffleArrayRandom);
+  if (!choosedComplexity) {
+    choosedComplexity = 'normal';
   }
+  if (!selectedEasyGreenCards) {
+    selectAllDecksByComplexity();
+  }
+  selectDecksByComplexity(choosedComplexity);
+
   if (!startGreenDeck) {
     startGreenDeck = cardsDataGreen.sort(shuffleArrayRandom);
     startBrownDeck = cardsDataBrown.sort(shuffleArrayRandom);
@@ -215,9 +178,6 @@ start.addEventListener('click', () => {
     });
   }
 });
-
-
-
 
 back.addEventListener('click', () => {
   showCard();
@@ -440,6 +400,19 @@ function selectDecksByComplexity(complexity) {
     startGreenDeck = selectDeckByComplexity(totalGreen, arrGreen);
     startBrownDeck = selectDeckByComplexity(totalBrown, arrBrown);
     startBlueDeck = selectDeckByComplexity(totalBlue, arrBlue);
+  } else if (complexity.includes('normal')) {
+    startGreenDeck = selectDeckByComplexity(
+      totalGreen,
+      cardsDataGreen.sort(shuffleArrayRandom)
+    );
+    startBrownDeck = selectDeckByComplexity(
+      totalBrown,
+      cardsDataBrown.sort(shuffleArrayRandom)
+    );
+    startBlueDeck = selectDeckByComplexity(
+      totalBlue,
+      cardsDataBlue.sort(shuffleArrayRandom)
+    );
   } else if (complexity.includes('hardest')) {
     startGreenDeck = selectDeckByComplexity(
       totalGreen,
