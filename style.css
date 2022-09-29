@@ -10,7 +10,7 @@
 
 .container {
   display: grid;
-  grid-template-rows: 40vh 20vh 40vh;
+  grid-template-rows: 10vh 40vh 20vh 30vh;
   width: 100vw;
   height: 100vh;
   background-image: url(835c58f1f850fcfc430e.jpg);
@@ -305,6 +305,29 @@
   left: 50%;
   transform: translateX(-50%);
   background-color: hsl(285deg, 61%, 73%);
+}
+
+.rules {
+  justify-self: center;
+  align-self: center;
+}
+
+.rules-link {
+  width: 500px;
+}
+
+.rules-link a {
+  text-decoration: none;
+  font-size: 48px;
+  color: rgb(184, 13, 236);
+}
+
+.rules-link a:hover {
+  text-decoration: underline;
+}
+
+.rules.inactive {
+  display: none;
 }
 
 /*# sourceMappingURL=style.css.map*/

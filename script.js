@@ -1321,6 +1321,7 @@ var blue2 = document.querySelector('.blue2');
 var green3 = document.querySelector('.green3');
 var brown3 = document.querySelector('.brown3');
 var blue3 = document.querySelector('.blue3');
+var rules = document.querySelector('.rules');
 var totalGreen;
 var totalBrown;
 var totalBlue; //============== другие DOM-элементы
@@ -1442,6 +1443,7 @@ start.addEventListener('click', function () {
     container.classList.add('active');
     back.classList.add('active');
     front.classList.add('active');
+    rules.classList.add('inactive');
     back.src = _src_assets_mythicCardBackground_jpg__WEBPACK_IMPORTED_MODULE_4__;
     selectCards();
     splitAllSelectedCardsByStages();
