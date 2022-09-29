@@ -16,6 +16,8 @@ const blue2 = document.querySelector('.blue2');
 const green3 = document.querySelector('.green3');
 const brown3 = document.querySelector('.brown3');
 const blue3 = document.querySelector('.blue3');
+const rules = document.querySelector('.rules');
+
 let totalGreen;
 let totalBrown;
 let totalBlue;
@@ -149,6 +151,8 @@ start.addEventListener('click', () => {
     container.classList.add('active');
     back.classList.add('active');
     front.classList.add('active');
+    rules.classList.add('inactive');
+
 
     back.src = cardBack;
 
